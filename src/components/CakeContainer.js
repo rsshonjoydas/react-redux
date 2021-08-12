@@ -1,12 +1,23 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import { connect } from 'react-redux';
+import { buyCake } from '../redux/cake/cakeActions';
 
-function CakeContainer() {
-  return (
-    <div>
-      <h2>Number of cakes</h2>
-      <button type="button">Buy Cake</button>
-    </div>
-  );
-}
+const CakeContainer = (props) => (
+  <div>
+    <h2>Number of cakes - {props.numOfCakes}</h2>
+    <button type="button" onClick={props.buyCake}>
+      Buy Cake
+    </button>
+  </div>
+);
 
-export default CakeContainer;
+const mapStateToProps = (state) => ({
+  numOfCakes: state.numOfCakes,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  buyCake: () => dispatch(buyCake()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CakeContainer);
