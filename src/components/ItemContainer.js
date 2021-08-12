@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { connect } from 'react-redux';
+import { buyCake, buyIceCream } from '../redux';
 
 function ItemContainer(props) {
   return (
@@ -22,4 +23,13 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(ItemContainer);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const dispatchFunction = ownProps.cake
+    ? () => dispatch(buyCake())
+    : () => dispatch(buyIceCream());
+  return {
+    buyItem: dispatchFunction,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer);
